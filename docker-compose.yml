@@ -1,0 +1,18 @@
+version: "3.8" # Specifies the version of the Docker Compose file format
+
+services:
+  # Define our backend service
+  backend:
+    build: ./backend # Tells Docker Compose to look for a Dockerfile in the ./backend folder
+    ports:
+      - "8000:8000" # Maps port 8000 on our computer to port 8000 in the container
+    environment:
+      # Pass our environment variables into the container
+      - TMDB_API_KEY=${TMDB_API_KEY}
+      - MONGO_CONNECTION_STRING=${MONGO_CONNECTION_STRING}
+
+  # Define our frontend service
+  frontend:
+    build: ./frontend/client # Tells Docker Compose where to find the frontend's Dockerfile
+    ports:
+      - "3000:80" # Maps port 3000 on our computer to port 80 in the container (where Nginx is serving)
